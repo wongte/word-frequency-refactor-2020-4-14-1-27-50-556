@@ -1,6 +1,5 @@
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class WordFrequencyGame {
 
@@ -9,12 +8,8 @@ public class WordFrequencyGame {
     private static final String SPACE_PATTERN = "\\s+";
 
     public String getResult(String sentence) {
-        try {
-            List<WordInfo> wordInfoList = calculateWordCount(sentence);
-            return getOutputResult(wordInfoList);
-        } catch (Exception e) {
-            return "Calculate Error";
-        }
+        List<WordInfo> wordInfoList = calculateWordCount(sentence);
+        return getOutputResult(wordInfoList);
     }
 
     private List<WordInfo> calculateWordCount(String sentence) {
