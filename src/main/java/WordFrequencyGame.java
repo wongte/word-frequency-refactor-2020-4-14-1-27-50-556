@@ -1,4 +1,6 @@
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class WordFrequencyGame {
 
@@ -23,16 +25,14 @@ public class WordFrequencyGame {
             int wordCount = Collections.frequency(words, word);
             wordInfoList.add(new WordInfo(word, wordCount));
         }
-        wordInfoList.sort((word1, word2) -> word2.getWordCount() - word1.getWordCount());
         return wordInfoList;
     }
 
     private String getOutputResult(List<WordInfo> wordInfoList) {
-        StringJoiner joiner = new StringJoiner(NEW_LINE_DELIMITER);
-        for (WordInfo word : wordInfoList) {
-            String formattedWordCountResult = word.getWord() + SPACE_DELIMITER + word.getWordCount();
-            joiner.add(formattedWordCountResult);
-        }
-        return joiner.toString();
+        return wordInfoList
+                .stream()
+                .sorted(Comparator.comparingInt(WordInfo::getWordCount).reversed())
+                .map(wordInfo -> wordInfo.getWord() + SPACE_DELIMITER + wordInfo.getWordCount())
+                .collect(Collectors.joining(NEW_LINE_DELIMITER));
     }
 }
